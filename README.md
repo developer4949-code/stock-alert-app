@@ -42,7 +42,7 @@ flowchart TD
     L --> M[OTP Verification via AWS SES]
     M --> N[Recipient Gains Access]
 
-
+```
 ⚙️ Getting Started
 ✅ Prerequisites
 

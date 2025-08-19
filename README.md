@@ -41,3 +41,86 @@ flowchart TD
     B --> L[Share Watchlist via Intents]
     L --> M[OTP Verification via AWS SES]
     M --> N[Recipient Gains Access]
+
+
+⚙️ Getting Started
+✅ Prerequisites
+
+Android Studio
+ (latest version)
+
+JDK 17+
+
+AWS account with SES, SNS, DynamoDB, Elastic Beanstalk, and Pinpoint configured
+
+NewsAPI key
+
+🔧 Installation
+
+Clone the repository:
+
+git clone https://github.com/developer4949-code/stock-alert-app.git
+
+
+Open the project in Android Studio.
+
+Add your NewsAPI key and AWS credentials in the backend configuration (application.properties).
+
+Build and run the Android app on an emulator or device.
+
+Deploy the Spring Boot backend to AWS Elastic Beanstalk.
+
+⚙️ Configuration
+
+NewsAPI: Store API key securely in the backend.
+
+AWS SES: Set up for OTP email delivery.
+
+AWS SNS: Configure for push notifications.
+
+Room DB: Handles local storage for watchlists automatically.
+
+📱 Usage
+
+Launch the app and create a watchlist by searching for stock symbols.
+
+Enable alerts for specific news events (e.g., earnings, mergers).
+
+Share watchlists via supported apps (WhatsApp, Gmail, etc.).
+
+Recipients verify access with an OTP sent via email.
+
+View cached news offline and manage watchlists seamlessly.
+
+Alerts sync automatically when online.
+
+⚡ Challenges & Solutions
+
+Reliable News Parsing: Implemented keyword matching; plan to enhance with NLP.
+
+Intent Compatibility: Tested across WhatsApp, Gmail for smooth sharing.
+
+Offline Sync: Used WorkManager to queue and sync preferences seamlessly.
+
+🔮 Future Enhancements
+
+🤖 Add sentiment analysis for news impact scoring.
+
+🌐 Support for more news APIs for broader coverage.
+
+⚡ Customizable alert thresholds and frequency settings.
+
+🤝 Contributing
+
+Contributions are welcome!
+
+Fork the repo
+
+Create a feature branch
+
+Submit a pull request 🚀
+
+📜 License
+
+This project is licensed under the MIT License – see the LICENSE
+ file for details.

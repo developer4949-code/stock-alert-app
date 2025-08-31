@@ -22,16 +22,28 @@ public class NewsScheduler {
 
     @Scheduled(fixedRate = 600000) // Every 10 minutes
     public void checkNewsForAllWatchlists() {
-        // Fetch all user IDs dynamically (e.g., from UserService or a scan of Users table)
-        // For simplicity, assume UserService can provide a list of userIds
-        List<String> userIds = userService.getAllUserIds(); // Implement this method in UserService
-        for (String userId : userIds) {
-            List<Watchlist> watchlists = watchlistService.getWatchlists(userId);
-            for (Watchlist watchlist : watchlists) {
-                for (String symbol : watchlist.getSymbols()) {
-                    newsService.checkAndNotifyAlerts(symbol);
+        try {
+            // Fetch all user IDs dynamically
+            List<String> userIds = userService.getAllUserIds();
+            
+            for (String userId : userIds) {
+                try {
+                    List<Watchlist> watchlists = watchlistService.getWatchlists(userId);
+                    for (Watchlist watchlist : watchlists) {
+                        for (String symbol : watchlist.getSymbols()) {
+                            try {
+                                newsService.checkAndNotifyAlerts(symbol);
+                            } catch (Exception e) {
+                                System.err.println("Error checking alerts for symbol " + symbol + ": " + e.getMessage());
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error processing watchlists for user " + userId + ": " + e.getMessage());
                 }
             }
+        } catch (Exception e) {
+            System.err.println("Error in scheduled news check: " + e.getMessage());
         }
     }
 }

@@ -22,8 +22,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public String createUser(String name) {
-        return userRepository.createUser(name);
+    public String createUser(String name, String email, String phoneNumber) {
+        return userRepository.createUser(name, email, phoneNumber);
     }
 
     public User getUser(String userId) {
@@ -34,6 +34,8 @@ public class UserService {
         User user = new User();
         user.setUserId(item.get("userId").s());
         user.setName(item.get("name").s());
+        user.setEmail(item.get("email").s());
+        user.setPhoneNumber(item.get("phoneNumber").s());
         return user;
     }
 

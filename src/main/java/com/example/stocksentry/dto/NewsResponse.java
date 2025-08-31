@@ -1,9 +1,6 @@
 package com.example.stocksentry.dto;
 
-
-
 import lombok.Data;
-
 import java.util.List;
 
 @Data  // Lombok for getters/setters
@@ -17,6 +14,9 @@ public class NewsResponse {
         private String title;
         private String description;
         private String content;
-        // Add more fields if needed
+        private String publishedAt;  // publish date from API
+        private String url;          // article URL
+
+
     }
 }

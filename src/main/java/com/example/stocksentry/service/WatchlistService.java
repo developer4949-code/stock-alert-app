@@ -5,6 +5,7 @@ import com.example.stocksentry.dto.Watchlist;
 import com.example.stocksentry.exception.StockSentryException;
 import com.example.stocksentry.repository.OtpRepository;
 import com.example.stocksentry.repository.WatchlistRepository;
+import com.example.stocksentry.service.OtpService;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 
@@ -25,8 +26,17 @@ public class WatchlistService {
         this.otpRepository = otpRepository;
     }
 
-    public void createWatchlist(String userId, String name, List<String> symbols) {
-        watchlistRepository.saveWatchlist(userId, name, symbols);
+    public void createWatchlist(String id, String userId, String name, List<String> symbols) {
+        watchlistRepository.saveWatchlist(id, userId, name, symbols);
+    }
+
+    public void upsertWatchlist(Watchlist watchlist) {
+        watchlistRepository.upsertWatchlist(
+                watchlist.getId(),
+                watchlist.getUserId(),
+                watchlist.getName(),
+                watchlist.getSymbols()
+        );
     }
 
     public List<Watchlist> getWatchlists(String userId) {
@@ -64,5 +74,17 @@ public class WatchlistService {
         otpRepository.saveOtp(otp, watchlistId);
         otpService.sendOtp(recipientEmail, otp);
         return "stocksentry://share/" + otp;
+    }
+
+    public void deleteWatchlist(String watchlistId) {
+        watchlistRepository.deleteWatchlistById(watchlistId);
+    }
+
+    public void addSymbols(String watchlistId, List<String> symbols) {
+        watchlistRepository.addSymbols(watchlistId, symbols);
+    }
+
+    public void removeSymbol(String watchlistId, String symbol) {
+        watchlistRepository.removeSymbol(watchlistId, symbol);
     }
 }

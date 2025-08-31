@@ -17,11 +17,13 @@ public class UserRepository {
         this.dynamoDbClient = dynamoDbClient;
     }
 
-    public String createUser(String name) {
+    public String createUser(String name, String email, String phoneNumber) {
         String userId = UUID.randomUUID().toString();
         Map<String, AttributeValue> item = new HashMap<>();
         item.put("userId", AttributeValue.builder().s(userId).build());
         item.put("name", AttributeValue.builder().s(name).build());
+        item.put("email", AttributeValue.builder().s(email).build());
+        item.put("phoneNumber", AttributeValue.builder().s(phoneNumber).build());
 
         PutItemRequest request = PutItemRequest.builder()
                 .tableName("Users")

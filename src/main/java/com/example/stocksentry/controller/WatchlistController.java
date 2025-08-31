@@ -26,12 +26,32 @@ public class WatchlistController {
 
     @PostMapping
     public void createWatchlist(@RequestBody Watchlist watchlist) {
-        watchlistService.createWatchlist(watchlist.getUserId(), watchlist.getName(), watchlist.getSymbols());
+        watchlistService.createWatchlist(watchlist.getId(), watchlist.getUserId(), watchlist.getName(), watchlist.getSymbols());
+    }
+
+    @PostMapping("/upsert")
+    public void upsertWatchlist(@RequestBody Watchlist watchlist) {
+        watchlistService.upsertWatchlist(watchlist);
     }
 
     @GetMapping("/{userId}")
     public List<Watchlist> getWatchlists(@PathVariable String userId) {
         return watchlistService.getWatchlists(userId);
+    }
+
+    @DeleteMapping("/{watchlistId}")
+    public void deleteWatchlist(@PathVariable String watchlistId) {
+        watchlistService.deleteWatchlist(watchlistId);
+    }
+
+    @PostMapping("/{watchlistId}/symbols")
+    public void addSymbols(@PathVariable String watchlistId, @RequestBody List<String> symbols) {
+        watchlistService.addSymbols(watchlistId, symbols);
+    }
+
+    @DeleteMapping("/{watchlistId}/symbols/{symbol}")
+    public void removeSymbol(@PathVariable String watchlistId, @PathVariable String symbol) {
+        watchlistService.removeSymbol(watchlistId, symbol);
     }
 
     @PostMapping("/share")
